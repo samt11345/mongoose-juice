@@ -4,8 +4,7 @@ const reactionSchema = require('./Reaction');
 // Schema to create Thought model
 const thoughtSchema = new Schema(
   {
-    
-    reactions: [reactionSchema],
+    reactions: [reactionSchema], // Use the schema directly
     createdAt: {
       type: Date,
       default: Date.now(),
@@ -14,7 +13,7 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      trimmed: true,
+      trim: true, // Corrected typo: trimmed to trim
     },
   },
   {

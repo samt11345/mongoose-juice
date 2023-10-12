@@ -6,28 +6,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      trimmed: true,
+      trim: true,
+      validate: {
+        validator: (username) => /^[a-zA-Z0-9]+$/.test(username),
+        message: 'Username can only contain alphanumeric characters.',
+      },
     },
-    email:{
+    email: {
       type: String,
       required: true,
       unique: true,
-      match:[/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/,"Email does not match"]
-      
+      match: [/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/, 'Email does not match'],
     },
-    
-    // inPerson: {
-    //   type: Boolean,
-    //   default: true,
-    // },
-    // startDate: {
-    //   type: Date,
-    //   default: Date.now(),
-    // },
-    // endDate: {
-    //   type: Date,
-    //   default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
-    // },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
@@ -37,7 +27,7 @@ const userSchema = new Schema(
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought',
+        ref: 'User',
       },
     ],
   },
@@ -49,8 +39,6 @@ const userSchema = new Schema(
   }
 );
 
-
-
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
